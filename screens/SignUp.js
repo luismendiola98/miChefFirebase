@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View, TextInput} from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateEmail, updatePassword, updateUserName, updateBio, signup } from '../actions/user';
 import styles from '../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const keyboardVerticalOffset = 150;
 
 class SignUp extends React.Component {
     signup = () => {
@@ -15,12 +17,15 @@ class SignUp extends React.Component {
         return (
         <View style={styles.container}>
             <Text>SignUp</Text>
+            {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.email}
                 onChangeText = {(input) => this.props.updateEmail(input)}
                 placeholder = 'Email'
             />
+            {/* </KeyboardAvoidingView>
+            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.password}
@@ -28,21 +33,27 @@ class SignUp extends React.Component {
                 placeholder = 'Password'
                 secureTextEntry = {true}
             />
+            {/* </KeyboardAvoidingView>
+            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.username}
                 onChangeText = {(input) => this.props.updateUserName(input)}
                 placeholder = 'Username'
             />
-            <TextInput
-                style = {styles.border}
-                value = {this.props.user.bio}
-                onChangeText = {(input) => this.props.updateBio(input)}
-                placeholder = 'Bio'
-            />
+            {/* </KeyboardAvoidingView> */}
+            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}>
+              <TextInput
+                  style = {styles.border}
+                  value = {this.props.user.bio}
+                  onChangeText = {(input) => this.props.updateBio(input)}
+                  placeholder = 'Bio'
+              />
+            </KeyboardAvoidingView>
+
             <TouchableOpacity style = {styles.button} 
             onPress = {() => this.signup() }>
-            <Text>Sign Up</Text>
+              <Text>Sign Up</Text>
             </TouchableOpacity>
         </View>
         );

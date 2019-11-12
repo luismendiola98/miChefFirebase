@@ -1,12 +1,17 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateEmail, updatePassword, login, getUser } from '../actions/user';
+import { updateEmail, updatePassword, login, getUser, facebookLogin } from '../actions/user';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Loading from './Loading';
 import styles from '../styles';
+
+const keyboardVerticalOffset = 100;
+
 class Login extends React.Component {
+  
   // check if user is already logged in
   // if so direct them to the 'Home' page
   componentDidMount = () => {
@@ -14,6 +19,7 @@ class Login extends React.Component {
       if(user){
         this.props.getUser(user.uid)
         if(this.props.user ){
+          <Loading/>
           this.props.navigation.navigate('Home')
         }
       }
@@ -24,12 +30,16 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Login</Text>
+        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
         <TextInput
           style = {styles.border}
           value = {this.props.user.email}
           onChangeText = {(input) => this.props.updateEmail(input)}
           placeholder = 'Email'
         />
+        {/* </KeyboardAvoidingView> */}
+
+        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
         <TextInput
           style = {styles.border}
           value = {this.props.user.password}
@@ -37,11 +47,19 @@ class Login extends React.Component {
           placeholder = 'Password'
           secureTextEntry = {true}
         />
-        <TouchableOpacity style = {styles.button} onPress = {() => this.props.login()}>
+        {/* </KeyboardAvoidingView> */}
+
+        <TouchableOpacity style = {styles.loginButton} onPress = {() => this.props.login()}>
           <Text>Login</Text>
         </TouchableOpacity>
-        <Text style = {{marginTop: 20}}>OR</Text>
-        <TouchableOpacity style = {styles.button} 
+
+        <TouchableOpacity style = {styles.facebookButton} onPress = {() => this.props.facebookLogin()}>
+          <Text>Facebook Login</Text>
+        </TouchableOpacity>
+
+        <Text style = {{marginTop: 20}}>or</Text>
+
+        <TouchableOpacity style = {styles.loginButton} 
         onPress = {() => this.props.navigation.navigate('SignUp')}>
           <Text>Sign Up</Text>
         </TouchableOpacity>
@@ -51,7 +69,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateEmail, updatePassword, login, getUser }, dispatch)  
+  return bindActionCreators({ updateEmail, updatePassword, login, getUser, facebookLogin }, dispatch)  
 }
 const mapStateToProps = (state) => {
   return {

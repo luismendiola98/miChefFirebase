@@ -10,7 +10,8 @@ class Activity extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text>Activity Page {this.props.user.email} </Text>
+        <Text>Activity Page</Text> 
+        <Text> {this.props.user.email} </Text>
         <Text>{this.props.user.username}</Text>
         <Text>{this.props.user.bio}</Text>
       </View>

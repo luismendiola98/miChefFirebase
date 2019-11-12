@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import { add, subtract } from '../actions/index';
@@ -12,6 +12,10 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Profile</Text>
+        <Image
+          style={styles.profileImage}
+          source={{ uri: this.props.user.photo }}
+        />
         <Text>{this.props.user.email}</Text>
         <Text>{this.props.user.username}</Text>
         <Text>{this.props.user.bio}</Text>
