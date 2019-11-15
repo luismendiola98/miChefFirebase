@@ -12,7 +12,7 @@ export const sharePost = () => {
             const { post, user } = getState()
             // console.log(post)
             const share = {
-                  postPhoto: 'https://firebasestorage.googleapis.com/v0/b/michef-57ce4.appspot.com/o/IMG_3254.jpg?alt=media&token=050f6046-4632-42a4-b46b-6bb2272adea5',
+                  postPhoto: 'https://firebasestorage.googleapis.com/v0/b/michef-57ce4.appspot.com/o/24E25059-1FAC-4A97-9B77-9755F0E99C93.jpeg?alt=media&token=48411799-c11f-4085-954c-b6f4560e913f',
                   description: post.description,
                   uid: user.uid,
                   username: user.username,
