@@ -28,18 +28,15 @@ class Login extends React.Component {
 
   render () {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior = 'padding' style={styles.container}>
         <Text>Login</Text>
-        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
         <TextInput
           style = {styles.border}
           value = {this.props.user.email}
           onChangeText = {(input) => this.props.updateEmail(input)}
           placeholder = 'Email'
+          keyboardType = 'email-address'
         />
-        {/* </KeyboardAvoidingView> */}
-
-        {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
         <TextInput
           style = {styles.border}
           value = {this.props.user.password}
@@ -47,8 +44,6 @@ class Login extends React.Component {
           placeholder = 'Password'
           secureTextEntry = {true}
         />
-        {/* </KeyboardAvoidingView> */}
-
         <TouchableOpacity style = {styles.loginButton} onPress = {() => this.props.login()}>
           <Text>Login</Text>
         </TouchableOpacity>
@@ -63,7 +58,7 @@ class Login extends React.Component {
         onPress = {() => this.props.navigation.navigate('SignUp')}>
           <Text>Sign Up</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

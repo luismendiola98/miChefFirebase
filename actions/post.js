@@ -1,28 +1,32 @@
 import firebase from 'firebase';
+import uuid from 'uuid';
 import db from '../config/db';
-import { array } from 'prop-types';
 
 export const updateDescription = (text) => {
     return { type: 'UPDATE_DESCRIPTION', payload: text }
 } 
-
+export const updatePhoto = (input) => {
+    return { type: 'UPDATE_PHOTO', payload: input }
+} 
+export const updateLocation = (input) => {
+    return { type: 'UPDATE_LOCATION', payload: input }
+} 
 export const sharePost = () => {
     return async (dispatch, getState) => {
         try {
             const { post, user } = getState()
+            const id = uuid.v4()
             // console.log(post)
             const share = {
-                  postPhoto: 'https://firebasestorage.googleapis.com/v0/b/michef-57ce4.appspot.com/o/24E25059-1FAC-4A97-9B77-9755F0E99C93.jpeg?alt=media&token=48411799-c11f-4085-954c-b6f4560e913f',
-                  description: post.description,
-                  uid: user.uid,
-                  username: user.username,
-                  photo: user.photo
-
+                id: id,
+                postPhoto: post.photo,
+                description: post.description,
+                postLocation: post.location,
+                uid: user.uid,
+                username: user.username,
+                userPhoto: user.photo
             }
-            const ref = await db.collection('posts').doc()
-            share.id =  ref.id
-            ref.set(share)
-            // dispatch ({ type: 'LOGIN', payload: user.data() })
+            db.collection('posts').doc(id).set(share)
         }
         catch (e){ 
             alert(e)

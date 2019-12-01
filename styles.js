@@ -8,6 +8,16 @@ export default styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    center: {
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    row: {
+      flexDirection: 'row',
+      padding: 10,
+      borderColor: 'grey',
+      borderWidth: 1,
+    },
     loginButton: {
       marginTop: 20,
       paddingVertical: 10,
@@ -24,10 +34,12 @@ export default styles = StyleSheet.create({
       fontSize: 16,
       borderColor: 'grey',
       borderBottomWidth: 1,
-      textAlign: 'center'
+      textAlign: 'center',
+      alignItems: 'center'
     },
     facebookButton: {
       backgroundColor: '#3b5998',
+      color: '#ffffff',
       marginTop: 20,
       paddingVertical: 10,
       alignItems: 'center',
@@ -35,6 +47,14 @@ export default styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 5,
       width: 200
+    },
+    cameraButton: {
+      backgroundColor: '#ffffff',
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      alignSelf: 'center',
+      marginBottom: 20
     },
     profileImage: {
       width: 50,
@@ -49,5 +69,10 @@ export default styles = StyleSheet.create({
       width: width,
       height: 250,
 
+    },
+    roundImage: {
+      width: 40,
+      height: 40,
+      borderRadius: 20
     }
 });

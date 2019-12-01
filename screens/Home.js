@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, View, Button, Image } from 'react-native';
+import { Text, View, Button, Image, FlatList } from 'react-native';
+import { Ionicons, EvilIcons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions/post';
 import styles from '../styles';
+
 
 class Home extends React.Component {
   componentDidMount() {
@@ -13,8 +15,31 @@ class Home extends React.Component {
     if(this.props.post === null) return null
     return (
       <View style={styles.container}>
-        <Image style = {styles.postPhoto} source = {{uri: this.props.post.feed[0].postPhoto}}/> 
-        <Text>{this.props.post.feed[0].description }</Text> 
+        {/* FlatList adds more functionality vs ScrollVIew */}
+       <FlatList 
+        data = {this.props.post.feed}
+        keyExtractor = {(item) => item.id}
+        renderItem = {({item}) => (
+          <View>
+            {/* above post */}
+            <View style = {[styles.row, styles.center]}>
+              <View style = {[styles.row, styles.center]}>
+                <Image style = {styles.roundImage} source = {{uri: item.photo}}/> 
+                <Text>{item.username}</Text> 
+              </View>
+              <Ionicons name= 'ios-flag' size={25} />
+            </View>
+            <Image style = {styles.postPhoto} source = {{uri: item.postPhoto}}/> 
+            {/* below post */}
+            <View style = {styles.row}>
+              <EvilIcons name= 'like' size={25} />
+              <EvilIcons name= 'comment' size={25} />  
+              <EvilIcons name= 'share-apple' size={25} />            
+            </View>
+            <Text>{item.description }</Text> 
+          </View>
+        )}   
+        />
       </View>
     );
   }

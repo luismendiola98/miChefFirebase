@@ -2,15 +2,11 @@ import React from 'react';
 import { createAppContainer} from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import Home from '../screens/Home';
-import Search from '../screens/Search';
-import Post from '../screens/Post';
-import Activity from '../screens/Activity';
-import Profile from '../screens/Profile';
+import {HomeNavigator, SearchNavigator, PostNavigator, ActivityNavigator, ProfileNavigator} from './StackNavigator';
 
 const TabNavigator = createBottomTabNavigator({
   Home: { 
-    screen: Home, navigationOptions: {
+    screen: HomeNavigator, navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: () => (
         <Ionicons name= 'md-home' size={32} />
@@ -18,7 +14,7 @@ const TabNavigator = createBottomTabNavigator({
     }
   },
   Search: { 
-    screen: Search, navigationOptions: {
+    screen: SearchNavigator, navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: () => (
         <Ionicons name= 'ios-search' size={32} />
@@ -26,7 +22,7 @@ const TabNavigator = createBottomTabNavigator({
     }
   },
   Post: { 
-    screen: Post, navigationOptions: {
+    screen: PostNavigator, navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: () => (
         <Ionicons name= 'md-add-circle-outline' size={32} />
@@ -34,7 +30,7 @@ const TabNavigator = createBottomTabNavigator({
     }
   },
   Activity: { 
-    screen: Activity, navigationOptions: {
+    screen: ActivityNavigator, navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: () => (
         <Ionicons name= 'ios-notifications-outline' size={32} />
@@ -42,7 +38,7 @@ const TabNavigator = createBottomTabNavigator({
     }
   },
   Profile: { 
-    screen: Profile, navigationOptions: {
+    screen: ProfileNavigator, navigationOptions: {
       tabBarLabel: ' ',
       tabBarIcon: () => (
         <Ionicons name= 'md-person' size={32} />

@@ -6,7 +6,7 @@ import { updateEmail, updatePassword, updateUserName, updateBio, signup } from '
 import styles from '../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const keyboardVerticalOffset = 150;
+// const keyboardVerticalOffset = 150;
 
 class SignUp extends React.Component {
     signup = () => {
@@ -15,47 +15,43 @@ class SignUp extends React.Component {
     } 
     render () {
         return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior = 'padding' style={styles.container}>
             <Text>SignUp</Text>
-            {/* <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.email}
                 onChangeText = {(input) => this.props.updateEmail(input)}
                 placeholder = 'Email'
+                returnKeyType = 'next'
+                keyboardType = 'email-address'
             />
-            {/* </KeyboardAvoidingView>
-            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.password}
                 onChangeText = {(input) => this.props.updatePassword(input)}
                 placeholder = 'Password'
                 secureTextEntry = {true}
+                returnKeyType = 'next'
             />
-            {/* </KeyboardAvoidingView>
-            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}> */}
             <TextInput
                 style = {styles.border}
                 value = {this.props.user.username}
                 onChangeText = {(input) => this.props.updateUserName(input)}
                 placeholder = 'Username'
+                returnKeyType = 'next'
             />
-            {/* </KeyboardAvoidingView> */}
-            <KeyboardAvoidingView behavior = 'padding' keyboardVerticalOffset = {keyboardVerticalOffset}>
-              <TextInput
-                  style = {styles.border}
-                  value = {this.props.user.bio}
-                  onChangeText = {(input) => this.props.updateBio(input)}
-                  placeholder = 'Bio'
-              />
-            </KeyboardAvoidingView>
-
-            <TouchableOpacity style = {styles.button} 
+            <TextInput
+                style = {styles.border}
+                value = {this.props.user.bio}
+                onChangeText = {(input) => this.props.updateBio(input)}
+                placeholder = 'Bio'
+                returnKeyType = 'go'
+            />
+            <TouchableOpacity style = {styles.loginButton} 
             onPress = {() => this.signup() }>
               <Text>Sign Up</Text>
             </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
         );
   }
 }
