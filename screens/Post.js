@@ -69,10 +69,9 @@ class Post extends React.Component {
           style = {styles.border}
           value = {this.props.post.description }
           onChangeText = {(text) => this.props.updateDescription(text)}
-          placeholder = 'Description'
-        />
-        <TouchableOpacity style = {styles.border} onPress = {() => this.getLocations}>
-          <Text style = {styles.gray}>{this.props.post.location ? this.props.post.location : 'Add a location'}</Text>
+          placeholder = 'Description'/>
+        <TouchableOpacity style = {styles.border} onPress = {this.getLocations}>
+          <Text style = {styles.gray}>{this.props.post.location ? this.props.post.location.name : 'Add a location'}</Text>
         </TouchableOpacity>
         <TouchableOpacity style = {styles.loginButton} onPress = {this.post}>
           <Text>Post</Text>
