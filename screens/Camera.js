@@ -18,20 +18,20 @@ class CameraUpload extends React.Component {
             const image = await this.camera.takePictureAsync()
             // console.log(image)
             if(!image.cancelled){
-                const resize = await ImageManipulator.manipulateAsync(image.uri, [], {format: ImageManipulator.SaveFormat.JPEG, compress: 0.1})
+                const resize = await ImageManipulator.manipulateAsync(image.uri, [], {format: 'jpeg', compress: 0.1})
                 // console.log(resize)
                 const url = await this.props.dispatch(uploadPhoto(resize))
                 this.props.dispatch(updatePhoto(url))
                 url ? this.props.navigation.navigate('Post') : null
-                console.log(url)
+                console.log(this.props.navigation.state)
             }
         }
     }
 
     render () {
         return (
-            <Camera style = {{flex: 1}} ref = {ref => {this.camera = ref}} type = {Camera.Constants.Type.back}>
-                <SafeAreaView style = {{flex: 1, backgroundColor: 'transparent'}}>
+            <Camera style = {{flex: 1,backgroundColor: 'transparent'}} ref = {ref => {this.camera = ref}} type = {Camera.Constants.Type.back}>
+                <SafeAreaView style = {{flex: 1}}>
                     <TouchableOpacity style = {{paddingLeft: 30}} onPress = {() => this.props.navigation.goBack()}>
                         <Ionicons color = {'white'} name= 'ios-arrow-back' size={50} />
                     </TouchableOpacity>
@@ -46,8 +46,6 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ uploadPhoto, updatePhoto }, dispatch)  
 }
 const mapStateToProps = (state) => {
-    return {
-        post: state.post
-    }
+    return {    }
 } 
 export default connect(mapStateToProps)(CameraUpload);

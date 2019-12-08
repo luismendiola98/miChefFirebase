@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateEmail, updatePassword, login, getUser, facebookLogin } from '../actions/user';
@@ -17,9 +17,8 @@ class Login extends React.Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if(user){
-        this.props.getUser(user.uid)
-        if(this.props.user ){
-          <Loading/>
+        this.props.getUser(user.uid, 'LOGIN')
+        if(this.props.user != null){
           this.props.navigation.navigate('Home')
         }
       }
@@ -28,14 +27,17 @@ class Login extends React.Component {
 
   render () {
     return (
-      <KeyboardAvoidingView behavior = 'padding' style={styles.container}>
-        <Text>Login</Text>
+      <KeyboardAvoidingView behavior = 'padding' style={[styles.container, styles.center]}>
+        <Text style = {styles.logo}>miChef</Text>
         <TextInput
           style = {styles.border}
           value = {this.props.user.email}
           onChangeText = {(input) => this.props.updateEmail(input)}
           placeholder = 'Email'
           keyboardType = 'email-address'
+          autoCapitalize = 'none'
+          returnKeyType = 'next'
+          onSubmitEditing = {() => this.passwordInput.focus()}
         />
         <TextInput
           style = {styles.border}
@@ -43,20 +45,22 @@ class Login extends React.Component {
           onChangeText = {(input) => this.props.updatePassword(input)}
           placeholder = 'Password'
           secureTextEntry = {true}
+          returnKeyType = 'go'
+          ref = {(input) => this.passwordInput = input}
         />
-        <TouchableOpacity style = {styles.loginButton} onPress = {() => this.props.login()}>
-          <Text>Login</Text>
+        <TouchableOpacity style = {styles.button} onPress = {() => this.props.login()}>
+          <Text style = {styles.bold}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.facebookButton} onPress = {() => this.props.facebookLogin()}>
-          <Text>Facebook Login</Text>
+          <Text style = {[styles.bold, styles.white]}>Facebook Login</Text>
         </TouchableOpacity>
 
         <Text style = {{marginTop: 20}}>or</Text>
 
-        <TouchableOpacity style = {styles.loginButton} 
+        <TouchableOpacity style = {styles.button} 
         onPress = {() => this.props.navigation.navigate('SignUp')}>
-          <Text>Sign Up</Text>
+          <Text style = {styles.bold}>Sign Up</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
